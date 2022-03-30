@@ -1,5 +1,6 @@
-import React, {useState} from "react"
+import React, { useState, useEffect } from "react"
 import styled from 'styled-components'
+import io from 'socket.io-client'
 
 import mockProblem from './mockGame.json'
 
@@ -31,6 +32,14 @@ const Answer = () => {
 };
 
 const GameRoom = () => {
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    const newSocket = io()
+    setSocket(newSocket)
+    return () => newSocket.close()
+  }, [setSocket])
+
   return(
     <Wrapper>
       <Problem />

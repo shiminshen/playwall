@@ -3,8 +3,9 @@
   "answerType": "text",
   "problems": [
     {
+      "questionId": 123,
       "question": "text",
-      "answer": "123"
+      "answers": []
     }
   ]
 }
