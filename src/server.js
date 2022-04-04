@@ -1,7 +1,7 @@
 import { createServer } from 'http'
 import { parse } from 'url'
 import next from 'next'
-import { Server } from "socket.io";
+import setupSocketServer from './socket'
 
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = 'localhost'
@@ -27,10 +27,8 @@ const server = createServer(async (req, res) => {
   }
 })
 
-const io = new Server(server);
-io.on('connection', (socket) => {
-  console.log('a user connected');
-})
+
+setupSocketServer(server)
 
 app.prepare().then(() => {
   server.listen(port, (err) => {
