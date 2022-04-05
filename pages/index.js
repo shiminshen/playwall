@@ -1,8 +1,12 @@
 import Head from 'next/head'
+
+import withApollo from '../src/lib/withApollo'
 import GameRoom from '../src/components/room/GameRoom'
 
-export default function Home() {
+const Home = () => {
   return (
     <GameRoom />
   )
 }
+
+export default withApollo(Home)

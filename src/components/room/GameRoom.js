@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react"
 import styled from 'styled-components'
-import io from 'socket.io-client'
+import { gql, useQuery } from '@apollo/client';
 
-import mockProblem from './mockGame.json'
+const GET_PROBLEM = gql`
+  query problems {
+    problems {
+      questionType
+      answerType
+      questionId
+      content
+      answers
+    }
+  }
+`
 
 const Wrapper = styled.div`
   position: relative;
@@ -20,7 +30,8 @@ const AnswerWrapper = styled.div`
 `;
 
 const Problem = () => {
-  return <p>{JSON.stringify(mockProblem)}</p>
+  const { loading, error, data } = useQuery(GET_PROBLEM)
+  return <p>{JSON.stringify(data)}</p>
 }
 
 const Answer = () => {
@@ -32,14 +43,6 @@ const Answer = () => {
 };
 
 const GameRoom = () => {
-  const [socket, setSocket] = useState(null);
-
-  useEffect(() => {
-    const newSocket = io()
-    setSocket(newSocket)
-    return () => newSocket.close()
-  }, [setSocket])
-
   return(
     <Wrapper>
       <Problem />

@@ -3,35 +3,16 @@
     {
       "questionType": "text",
       "answerType": "text",
-      "problems": [
-        {
-          "questionId": 123,
-          "question": "test",
-          "answers": []
-        }
-      ]
+      "questionId": 1,
+      "content": "test",
+      "answers": "xxx"
     },
     {
       "questionType": "text",
       "answerType": "text",
-      "problems": [
-        {
-          "questionId": 2,
-          "question": "test2",
-          "answers": []
-        }
-      ]
-    },
-    {
-      "questionType": "text",
-      "answerType": "text",
-      "problems": [
-        {
-          "questionId": 3,
-          "question": "test3",
-          "answers": []
-        }
-      ]
+      "questionId": 2,
+      "content": "test2",
+      "answers": "xxx"
     }
   ]
 }
