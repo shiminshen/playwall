@@ -2,17 +2,39 @@
   "questions": [
     {
       "questionType": "text",
-      "answerType": "text",
+      "answerType": "selector",
       "questionId": 1,
-      "content": "test",
-      "answers": "xxx"
+      "content": "我會履行我的職責",
+      "answers": [
+        "鬼滅之刃",
+        "進擊的巨人",
+        "我的英雄學園",
+        "航海王"
+      ]
     },
     {
       "questionType": "text",
-      "answerType": "text",
-      "questionId": 2,
-      "content": "test2",
-      "answers": "xxx"
+      "answerType": "selector",
+      "questionId": 1,
+      "content": "還差得遠呢",
+      "answers": [
+        "鬼滅之刃",
+        "進擊的巨人",
+        "我的英雄學園",
+        "航海王"
+      ]
+    },
+    {
+      "questionType": "text",
+      "answerType": "selector",
+      "questionId": 1,
+      "content": "那天人們想起曾經被支配的恐懼",
+      "answers": [
+        "鬼滅之刃",
+        "進擊的巨人",
+        "我的英雄學園",
+        "航海王"
+      ]
     }
   ]
 }
