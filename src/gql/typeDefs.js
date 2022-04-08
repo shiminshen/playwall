@@ -1,7 +1,6 @@
 import { gql } from 'apollo-server-express'
 
 const typeDefs = gql`
-
   type Answer {
     type: String
     content: String

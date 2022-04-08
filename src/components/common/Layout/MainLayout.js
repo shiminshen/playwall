@@ -1,3 +1,4 @@
+import React from 'react'
 import Header from '../Header'
 
 const MainLayout = ({ children }) => {
@@ -7,6 +8,6 @@ const MainLayout = ({ children }) => {
       {children}
     </div>
   )
-};
+}
 
 export default MainLayout

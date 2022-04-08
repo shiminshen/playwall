@@ -1,32 +1,32 @@
 import { createServer } from 'http'
 import { parse } from 'url'
 import next from 'next'
-import { ApolloServer } from 'apollo-server-express';
-import express from 'express';
-import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { WebSocketServer } from 'ws';
-import { useServer } from 'graphql-ws/lib/use/ws';
+import { ApolloServer } from 'apollo-server-express'
+import express from 'express'
+import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core'
+import { makeExecutableSchema } from '@graphql-tools/schema'
+import { WebSocketServer } from 'ws'
+import { useServer } from 'graphql-ws/lib/use/ws'
 
-import resolvers from './gql/resolvers';
-import typeDefs from './gql/typeDefs';
+import resolvers from './gql/resolvers'
+import typeDefs from './gql/typeDefs'
 
 // Create the schema, which will be used separately by ApolloServer and
 // the WebSocket server.
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schema = makeExecutableSchema({ typeDefs, resolvers })
 
 // Create an Express app and HTTP server; we will attach both the WebSocket
 // server and the ApolloServer to this HTTP server.
-const server = express();
-const httpServer = createServer(server);
+const server = express()
+const httpServer = createServer(server)
 
 // Create our WebSocket server using the HTTP server we just set up.
 const wsServer = new WebSocketServer({
   server: httpServer,
   path: '/graphql',
-});
+})
 // Save the returned server's info so we can shutdown this server later
-const serverCleanup = useServer({ schema }, wsServer);
+const serverCleanup = useServer({ schema }, wsServer)
 
 // Set up ApolloServer.
 const apolloServer = new ApolloServer({
@@ -40,13 +40,13 @@ const apolloServer = new ApolloServer({
       async serverWillStart() {
         return {
           async drainServer() {
-            await serverCleanup.dispose();
+            await serverCleanup.dispose()
           },
-        };
+        }
       },
     },
   ],
-});
+})
 
 // next settings
 const dev = process.env.NODE_ENV !== 'production'
@@ -57,7 +57,7 @@ const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
 
 const startServer = async () => {
-  await apolloServer.start();
+  await apolloServer.start()
   apolloServer.applyMiddleware({ app: server })
 
   server.use(async (req, res) => {
@@ -65,7 +65,7 @@ const startServer = async () => {
       // Be sure to pass `true` as the second argument to `url.parse`.
       // This tells it to parse the query portion of the URL.
       const parsedUrl = parse(req.url, true)
-      const { pathname, query } = parsedUrl
+      // const { pathname, query } = parsedUrl
 
       await handle(req, res, parsedUrl)
     } catch (err) {
@@ -78,9 +78,9 @@ const startServer = async () => {
   return app.prepare().then(async () => {
     server.listen(port, (err) => {
       if (err) throw err
-        console.log(`> Ready on http://${hostname}:${port}`)
+      console.log(`> Ready on http://${hostname}:${port}`)
     })
   })
-};
+}
 
 startServer()

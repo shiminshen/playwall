@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { gql, useQuery } from '@apollo/client'
 
@@ -48,15 +48,15 @@ const Options = ({ answer }) => {
   const { options } = answer
   return (
     <div>
-      {options?.map((I) => (
-        <div>{I}</div>
+      {options?.map((I, idx) => (
+        <div key={idx}>{I}</div>
       ))}
     </div>
   )
 }
 
 const GameRoom = () => {
-  const { loading, error, data } = useQuery(GET_PROBLEM)
+  const { data } = useQuery(GET_PROBLEM)
   const question = data?.questions?.[0]
   const answer = question?.answer
   return (
