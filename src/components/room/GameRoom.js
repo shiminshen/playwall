@@ -35,8 +35,7 @@ const Question = ({ question }) => {
   return <p>{JSON.stringify(question)}</p>
 }
 
-const Answer = ({ answer }) => {
-  console.log(answer)
+const Answer = ({ answer = {} }) => {
   return (
     <AnswerWrapper>
       <input type="text" />
@@ -45,11 +44,11 @@ const Answer = ({ answer }) => {
   )
 }
 
-const Options = ({ answer = {} }) => {
+const Options = ({ answer }) => {
   const { options } = answer
   return (
     <div>
-      {options.map((I) => (
+      {options?.map((I) => (
         <div>{I}</div>
       ))}
     </div>

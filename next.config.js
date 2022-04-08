@@ -1,4 +1,5 @@
-import path from 'path'
+const path = require('path')
+
 // next.config.js
 module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack  }) => {

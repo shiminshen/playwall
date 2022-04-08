@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "babel-node src/server.js",
     "build": "next build && babel src --out-dir build --copy-files ",
-    "start": "NODE_ENV=production node dist/server.js"
+    "start": "NODE_ENV=production node dist/server.js",
+    "lint": "next lint"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
