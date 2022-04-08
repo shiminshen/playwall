@@ -4,12 +4,12 @@ import mockGames from '../../mockGame.json'
 
 const resolver = {
   Query: {
-    problems: () => {
+    questions: () => {
       return mockGames.questions
     }
   },
   Subscription: {
-    problems: {
+    questions: {
       subscribe: () => pubsub.asyncIterator('PROBLEMS'),
     }
   }

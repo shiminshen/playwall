@@ -2,20 +2,25 @@ import { gql } from 'apollo-server-express'
 
 const typeDefs = gql`
 
-  type Problem {
-    questionType: String
-    answerType: String
-    questionId: Int
+  type Answer {
+    type: String
     content: String
-    answers: [String]
+    options: [String]
+  }
+
+  type Question {
+    type: String
+    id: Int
+    content: String
+    answer: Answer
   }
 
   type Query {
-    problems: [Problem]
+    questions: [Question]
   }
 
   type Subscription {
-    problems: [Problem]
+    questions: [Question]
   }
 `
 

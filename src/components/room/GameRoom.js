@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client'
 
 const GET_PROBLEM = gql`
-  query problems {
-    problems {
-      questionType
-      answerType
-      questionId
+  query questions {
+    questions {
+      id
+      type
       content
-      answers
+      answer {
+        type
+        options
+      }
     }
   }
 `
@@ -22,33 +24,48 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const AnswerWrapper = styled.div`
   position: absolute;
   bottom: 0;
-`;
+`
 
-const Problem = () => {
-  const { loading, error, data } = useQuery(GET_PROBLEM)
-  return <p>{JSON.stringify(data)}</p>
+const Question = ({ question }) => {
+  return <p>{JSON.stringify(question)}</p>
 }
 
-const Answer = () => {
+const Answer = ({ answer }) => {
+  console.log(answer)
   return (
     <AnswerWrapper>
-      <input type='text' />
+      <input type="text" />
+      <Options answer={answer} />
     </AnswerWrapper>
   )
-};
+}
+
+const Options = ({ answer = {} }) => {
+  const { options } = answer
+  return (
+    <div>
+      {options.map((I) => (
+        <div>{I}</div>
+      ))}
+    </div>
+  )
+}
 
 const GameRoom = () => {
-  return(
+  const { loading, error, data } = useQuery(GET_PROBLEM)
+  const question = data?.questions?.[0]
+  const answer = question?.answer
+  return (
     <Wrapper>
-      <Problem />
-      <Answer />
+      <Question question={question} />
+      <Answer answer={answer} />
     </Wrapper>
-    )
+  )
 }
 
 export default GameRoom
