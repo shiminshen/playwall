@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { gql, useQuery } from '@apollo/client'
 
+import Button from '@mui/material/Button'
+
 const GET_PROBLEM = gql`
   query questions {
     questions {
@@ -32,26 +34,39 @@ const AnswerWrapper = styled.div`
 `
 
 const Question = ({ question }) => {
-  return <p>{JSON.stringify(question)}</p>
+  return <p>{question?.content}</p>
 }
 
 const Answer = ({ answer = {} }) => {
   return (
     <AnswerWrapper>
-      <input type="text" />
       <Options answer={answer} />
     </AnswerWrapper>
   )
 }
 
+const StyledButton = styled(Button)`
+  width: 50%;
+`
+
+const Option = ({ option }) => {
+  return <StyledButton type="button">{option}</StyledButton>
+}
+
+const OptionsWrapper = styled.div`
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+`
+
 const Options = ({ answer }) => {
   const { options } = answer
   return (
-    <div>
+    <OptionsWrapper>
       {options?.map((I, idx) => (
-        <div key={idx}>{I}</div>
+        <Option key={idx} option={I} />
       ))}
-    </div>
+    </OptionsWrapper>
   )
 }
 

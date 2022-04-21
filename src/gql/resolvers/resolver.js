@@ -7,12 +7,15 @@ const pubsub = new PubSub()
 const resolver = {
   Query: {
     questions: () => {
+      pubsub.publish('QUESTIONS', { questions: mockGames.questions })
       return mockGames.questions
     },
   },
   Subscription: {
     questions: {
-      subscribe: () => pubsub.asyncIterator('QUESTIONS'),
+      subscribe: () => {
+        return pubsub.asyncIterator('QUESTIONS')
+      },
     },
   },
 }
