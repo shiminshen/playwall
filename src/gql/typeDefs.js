@@ -16,6 +16,7 @@ const typeDefs = gql`
 
   type Query {
     questions: [Question]
+    answer(questionId: Int): Answer
   }
 
   type Subscription {
