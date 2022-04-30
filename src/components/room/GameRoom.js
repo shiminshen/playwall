@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { gql, useQuery } from '@apollo/client'
 
@@ -10,9 +10,9 @@ const GET_PROBLEM = gql`
       id
       type
       content
-      answer {
+      options {
         type
-        options
+        content
       }
     }
   }
@@ -28,56 +28,71 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const AnswerWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-`
-
 const Question = ({ question }) => {
   return <p>{question?.content}</p>
-}
-
-const Answer = ({ answer = {} }) => {
-  return (
-    <AnswerWrapper>
-      <Options answer={answer} />
-    </AnswerWrapper>
-  )
 }
 
 const StyledButton = styled(Button)`
   width: 50%;
 `
 
-const Option = ({ option }) => {
-  return <StyledButton type="button">{option}</StyledButton>
+const Option = ({ option, onClick }) => {
+  const { content } = option || {}
+  return (
+    <StyledButton type="button" onClick={onClick}>
+      {content}
+    </StyledButton>
+  )
 }
 
 const OptionsWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
   width: 100vw;
   display: flex;
   flex-wrap: wrap;
 `
 
-const Options = ({ answer }) => {
-  const { options } = answer
+const Options = ({ options, onClick }) => {
   return (
     <OptionsWrapper>
       {options?.map((I, idx) => (
-        <Option key={idx} option={I} />
+        <Option key={idx} option={I} onClick={onClick} />
       ))}
     </OptionsWrapper>
   )
 }
 
+const useGameNavigator = ({ questions }) => {
+  const [questionIndex, setQuestionIndex] = useState(0)
+  if (questionIndex > questions?.length) {
+    return {
+      question: null,
+    }
+  }
+
+  const nextQuestion = () => {
+    setQuestionIndex(questionIndex + 1)
+  }
+
+  return {
+    nextQuestion,
+    question: questions?.[questionIndex],
+  }
+}
+
 const GameRoom = () => {
   const { data } = useQuery(GET_PROBLEM)
-  const question = data?.questions?.[0]
-  const answer = question?.answer
+  // const question = data?.questions?.[0]
+  const { question, nextQuestion } = useGameNavigator({
+    questions: data?.questions,
+  })
+  const options = question?.options
+
   return (
     <Wrapper>
       <Question question={question} />
-      <Answer answer={answer} />
+      <Options options={options} onClick={nextQuestion} />
     </Wrapper>
   )
 }

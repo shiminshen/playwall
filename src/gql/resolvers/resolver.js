@@ -1,14 +1,18 @@
 import { PubSub } from 'graphql-subscriptions'
 
-import mockGames from '../../mockGame.json'
+import mockGames from '../../mockGames.json'
+import mockQuestions from '../../mockQuestions.json'
 
 const pubsub = new PubSub()
 
 const resolver = {
   Query: {
+    games: () => {
+      return mockGames.games
+    },
     questions: () => {
-      pubsub.publish('QUESTIONS', { questions: mockGames.questions })
-      return mockGames.questions
+      pubsub.publish('QUESTIONS', { questions: mockQuestions.questions })
+      return mockQuestions.questions
     },
   },
   Subscription: {

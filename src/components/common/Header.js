@@ -21,7 +21,11 @@ const Logo = styled.div`
   font-size: 1.5rem;
 `
 
-const MenuWrapper = styled.div``
+const MenuWrapper = styled.div`
+  button + button {
+    margin-left: 4px;
+  }
+`
 
 const Header = () => {
   return (
