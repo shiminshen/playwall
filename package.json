@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "babel-node src/server.js",
     "build": "next build && babel src --out-dir build --copy-files ",
-    "start": "NODE_ENV=production node dist/server.js",
+    "start": "NODE_ENV=production node build/server.js",
     "lintfix": "prettier --write '{pages,src}/**/*.js' && eslint --fix '{pages,src}/**/*.js'",
     "lint": "eslint '{pages,src}/**/*.js'"
   },

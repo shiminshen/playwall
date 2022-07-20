@@ -31,6 +31,7 @@ const typeDefs = gql`
   type Query {
     games: [Game]
     questions: [Question]
+    answers(gameId: Int): [Answer]
     answer(questionId: Int): Answer
   }
 

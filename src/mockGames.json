@@ -37,15 +37,15 @@
           "options": [
             {
               "type": "text",
-              "content": "鬼滅之刃"
-            },
-            {
-              "type": "text",
               "content": "進擊的巨人"
             },
             {
               "type": "text",
               "content": "我的英雄學園"
+            },
+            {
+              "type": "text",
+              "content": "鬼滅之刃"
             },
             {
               "type": "text",

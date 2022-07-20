@@ -48,9 +48,6 @@ const Game = ({ game = {} }) => {
         <Typography variant="h5" component="div">
           {game?.title}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
-        </Typography>
         <Typography variant="body2">{game.description}</Typography>
       </CardContent>
       <CardActions>
